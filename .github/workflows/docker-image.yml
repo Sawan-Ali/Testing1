@@ -19,4 +19,6 @@ jobs:
       
         docker run -d --name safder ubuntu
         docker ps -a
+        docker exec safder ps aux
+        docker logs safder
         
