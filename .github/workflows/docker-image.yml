@@ -1,19 +1,22 @@
-
 name: Docker Image
 on:
   push:
     branches: [ "main" ]
- 
-
+  
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Build the Docker image
-  
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-       
+      run: |
+        TAG=my-image-name:$(date +%s)
+        docker build . --file Dockerfile --tag $TAG
+    
+    - name: Run the Docker container
+      run: |
+        TAG=my-image-name:$(date +%s)
+        docker run -d --name my-container $TAG
+        docker ps -a
